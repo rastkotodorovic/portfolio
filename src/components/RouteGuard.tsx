@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { routes, protectedRoutes } from "@/resources";
 import { Flex, Spinner, Button, Heading, Column, PasswordInput } from "@once-ui-system/core";
-import NotFound from "@/app/not-found";
+import NotFound from "@/app/(public)/not-found";
 
 interface RouteGuardProps {
   children: React.ReactNode;
@@ -29,7 +29,8 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       const checkRouteEnabled = () => {
         if (!pathname) return false;
 
-        if (pathname in routes) {
+        // Check if route exists in routes config
+        if (Object.prototype.hasOwnProperty.call(routes, pathname)) {
           return routes[pathname as keyof typeof routes];
         }
 
@@ -84,9 +85,9 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     );
   }
 
-  if (!isRouteEnabled) {
-    return <NotFound />;
-  }
+  // if (!isRouteEnabled) {
+  //   return <NotFound />;
+  // }
 
   if (isPasswordRequired && !isAuthenticated) {
     return (
