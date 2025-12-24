@@ -7,17 +7,17 @@ export async function middleware(req: NextRequest) {
   // Get the token (session) from the request
   const token = await getToken({ req, secret: process.env.AUTH_SECRET });
 
-  // Protect all /admin routes except /admin/login
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+  // Protect all /admin routes
+  if (pathname.startsWith("/admin")) {
     if (!token) {
-      const loginUrl = new URL("/admin/login", req.nextUrl.origin);
+      const loginUrl = new URL("/login", req.nextUrl.origin);
       loginUrl.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(loginUrl);
     }
   }
 
   // Redirect authenticated users away from login page
-  if (pathname === "/admin/login" && token) {
+  if (pathname === "/login" && token) {
     return NextResponse.redirect(new URL("/admin", req.nextUrl.origin));
   }
 
@@ -25,5 +25,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/login"],
 };
