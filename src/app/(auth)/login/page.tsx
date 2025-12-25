@@ -1,89 +1,43 @@
 "use client";
 
-import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { LoginForm } from "@/components/admin/login-form";
+import { Skeleton } from "@/components/admin/ui/skeleton";
 
-function LoginForm() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/admin";
-  const error = searchParams.get("error");
-
+function LoginFormFallback() {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        gap: "1.5rem",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "1rem",
-          maxWidth: "24rem",
-          textAlign: "center",
-        }}
-      >
-        <h1 style={{ fontSize: "1.5rem", fontWeight: 600, margin: 0 }}>
-          Admin Login
-        </h1>
-        <p style={{ color: "#666", margin: 0 }}>
-          Sign in with your authorized Google account to access the admin
-          dashboard.
-        </p>
-
-        {error && (
-          <p style={{ color: "#dc2626", margin: 0, fontSize: "0.875rem" }}>
-            {error === "AccessDenied"
-              ? "Access denied. Your Google account is not authorized."
-              : "An error occurred during sign in. Please try again."}
-          </p>
-        )}
-
-        <button
-          type="button"
-          onClick={() => signIn("google", { callbackUrl })}
-          style={{
-            padding: "0.75rem 1.5rem",
-            backgroundColor: "#000",
-            color: "#fff",
-            border: "none",
-            borderRadius: "0.375rem",
-            cursor: "pointer",
-            fontSize: "1rem",
-            fontWeight: 500,
-          }}
-        >
-          Sign in with Google
-        </button>
-      </div>
+    <div className="flex flex-col gap-6 w-full max-w-sm">
+      <Skeleton className="h-[280px] w-full rounded-xl" />
+      <Skeleton className="h-4 w-3/4 mx-auto" />
     </div>
   );
 }
 
 export default function LoginPage() {
   return (
-    <Suspense
-      fallback={
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: "100vh",
-          }}
-        >
-          <span>Loading...</span>
-        </div>
-      }
-    >
-      <LoginForm />
-    </Suspense>
+    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
+      <div className="flex w-full max-w-sm flex-col gap-6">
+        <a href="/" className="flex items-center gap-2 self-center font-medium">
+          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+            >
+              <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
+            </svg>
+          </div>
+          Magic Portfolio
+        </a>
+        <Suspense fallback={<LoginFormFallback />}>
+          <LoginForm />
+        </Suspense>
+      </div>
+    </div>
   );
 }

@@ -2,9 +2,9 @@
 
 import { SessionProvider } from "next-auth/react";
 import "./globals.css";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/admin/ui/sidebar";
 import { AppSidebar } from "@/components/admin/app-sidebar";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/admin/ui/separator";
 
 export default function AdminLayout({
   children,

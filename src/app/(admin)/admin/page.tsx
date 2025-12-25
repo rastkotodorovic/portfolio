@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/admin/ui/card";
 import { FileText, FolderKanban, Users, Eye } from "lucide-react";
 
 export default async function AdminPage() {
