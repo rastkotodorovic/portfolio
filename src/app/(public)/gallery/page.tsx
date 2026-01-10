@@ -1,3 +1,5 @@
+/* Gallery page disabled - uncomment to re-enable
+
 import { Flex, Meta, Schema } from "@once-ui-system/core";
 import GalleryView from "@/components/public/gallery/GalleryView";
 import { baseURL, gallery, person } from "@/resources";
@@ -31,4 +33,12 @@ export default function Gallery() {
       <GalleryView />
     </Flex>
   );
+}
+
+*/
+
+import { notFound } from "next/navigation";
+
+export default function Gallery() {
+  notFound();
 }

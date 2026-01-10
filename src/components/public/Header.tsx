@@ -147,6 +147,7 @@ export const Header = () => {
                   </Row>
                 </>
               )}
+              {/* Gallery navigation disabled
               {routes["/gallery"] && (
                 <>
                   <Row s={{ hide: true }}>
@@ -166,6 +167,7 @@ export const Header = () => {
                   </Row>
                 </>
               )}
+              */}
               {display.themeSwitcher && (
                 <>
                   <Line background="neutral-alpha-medium" vert maxHeight="24" />
