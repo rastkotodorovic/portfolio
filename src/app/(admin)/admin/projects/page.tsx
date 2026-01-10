@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ProjectsTable } from "./projects-table";
 import { Button } from "@/components/admin/ui/button";
@@ -26,9 +27,11 @@ export default async function ProjectsPage() {
             Manage your portfolio projects
           </p>
         </div>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          New Project
+        <Button asChild>
+          <Link href="/admin/projects/new">
+            <Plus className="mr-2 h-4 w-4" />
+            New Project
+          </Link>
         </Button>
       </div>
 

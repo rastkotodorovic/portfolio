@@ -74,6 +74,12 @@ export async function getAllProjects(): Promise<Project[]> {
   });
 }
 
+export async function getProjectById(id: string): Promise<Project | null> {
+  return prisma.project.findUnique({
+    where: { id },
+  });
+}
+
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   return prisma.project.findUnique({
     where: { slug },
@@ -84,5 +90,45 @@ export async function getPublishedProjects(): Promise<Project[]> {
   return prisma.project.findMany({
     where: { status: "published" },
     orderBy: { publishedAt: "desc" },
+  });
+}
+
+export async function createProject(data: {
+  title: string;
+  slug: string;
+  status: PostStatus;
+  summary: string;
+  publishedAt: Date;
+  teamSize: number;
+  link?: string;
+  content?: string;
+}): Promise<Project> {
+  return prisma.project.create({
+    data,
+  });
+}
+
+export async function updateProject(
+  id: string,
+  data: {
+    title?: string;
+    slug?: string;
+    status?: PostStatus;
+    summary?: string;
+    publishedAt?: Date;
+    teamSize?: number;
+    link?: string;
+    content?: string;
+  }
+): Promise<Project> {
+  return prisma.project.update({
+    where: { id },
+    data,
+  });
+}
+
+export async function deleteProject(id: string): Promise<Project> {
+  return prisma.project.delete({
+    where: { id },
   });
 }
