@@ -1,8 +1,8 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { DataTable } from "@/components/admin/data-table";
-import { columns } from "./columns";
+import { PostsTable } from "./posts-table";
 import { Button } from "@/components/admin/ui/button";
 import { Plus } from "lucide-react";
 import { getAllBlogPosts } from "@/lib/db/posts";
@@ -27,18 +27,15 @@ export default async function PostsPage() {
             Manage your blog posts and content
           </p>
         </div>
-        <Button>
-          <Plus className="mr-2 h-4 w-4" />
-          New Post
+        <Button asChild>
+          <Link href="/admin/posts/new">
+            <Plus className="mr-2 h-4 w-4" />
+            New Post
+          </Link>
         </Button>
       </div>
 
-      <DataTable
-        columns={columns}
-        data={posts}
-        searchKey="title"
-        searchPlaceholder="Filter posts..."
-      />
+      <PostsTable initialData={posts} />
     </div>
   );
 }

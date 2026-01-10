@@ -1,10 +1,16 @@
 import prisma from "@/lib/prisma";
-import type { BlogPost, Project } from "@prisma/client";
+import type { BlogPost, Project, PostStatus } from "@prisma/client";
 
 // Blog Post functions
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
   return prisma.blogPost.findMany({
     orderBy: { publishedAt: "desc" },
+  });
+}
+
+export async function getBlogPostById(id: string): Promise<BlogPost | null> {
+  return prisma.blogPost.findUnique({
+    where: { id },
   });
 }
 
@@ -20,6 +26,44 @@ export async function getPublishedBlogPosts(): Promise<BlogPost[]> {
   return prisma.blogPost.findMany({
     where: { status: "published" },
     orderBy: { publishedAt: "desc" },
+  });
+}
+
+export async function createBlogPost(data: {
+  title: string;
+  slug: string;
+  status: PostStatus;
+  tag: string;
+  publishedAt: Date;
+  summary: string;
+  content?: string;
+}): Promise<BlogPost> {
+  return prisma.blogPost.create({
+    data,
+  });
+}
+
+export async function updateBlogPost(
+  id: string,
+  data: {
+    title?: string;
+    slug?: string;
+    status?: PostStatus;
+    tag?: string;
+    publishedAt?: Date;
+    summary?: string;
+    content?: string;
+  }
+): Promise<BlogPost> {
+  return prisma.blogPost.update({
+    where: { id },
+    data,
+  });
+}
+
+export async function deleteBlogPost(id: string): Promise<BlogPost> {
+  return prisma.blogPost.delete({
+    where: { id },
   });
 }
 

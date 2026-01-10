@@ -2,12 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal, ArrowUpDown, Pencil, Trash2, Eye } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Button } from "@/components/admin/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/admin/ui/dropdown-menu";
@@ -23,6 +24,57 @@ export type BlogPost = {
   publishedAt: string;
   summary: string;
 };
+
+function ActionsCell({ post }: { post: BlogPost }) {
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    if (!confirm("Are you sure you want to delete this post?")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/admin/posts/${post.id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete post");
+      }
+
+      toast.success("Post deleted successfully");
+      router.refresh();
+    } catch (error) {
+      toast.error("Failed to delete post");
+    }
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => window.open(`/blog/${post.slug}`, "_blank")}>
+          <Eye className="mr-2 h-4 w-4" />
+          View post
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push(`/admin/posts/${post.id}/edit`)}>
+          <Pencil className="mr-2 h-4 w-4" />
+          Edit post
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="text-destructive" onClick={handleDelete}>
+          <Trash2 className="mr-2 h-4 w-4" />
+          Delete post
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export const columns: ColumnDef<BlogPost>[] = [
   {
@@ -113,41 +165,6 @@ export const columns: ColumnDef<BlogPost>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: ({ row }) => {
-      const post = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(post.slug)}
-            >
-              Copy slug
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Eye className="mr-2 h-4 w-4" />
-              View post
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Pencil className="mr-2 h-4 w-4" />
-              Edit post
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-destructive">
-              <Trash2 className="mr-2 h-4 w-4" />
-              Delete post
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ({ row }) => <ActionsCell post={row.original} />,
   },
 ];

@@ -1,8 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { DataTable } from "@/components/admin/data-table";
-import { columns } from "./columns";
+import { ProjectsTable } from "./projects-table";
 import { Button } from "@/components/admin/ui/button";
 import { Plus } from "lucide-react";
 import { getAllProjects } from "@/lib/db/posts";
@@ -33,12 +32,7 @@ export default async function ProjectsPage() {
         </Button>
       </div>
 
-      <DataTable
-        columns={columns}
-        data={projects}
-        searchKey="title"
-        searchPlaceholder="Filter projects..."
-      />
+      <ProjectsTable initialData={projects} />
     </div>
   );
 }

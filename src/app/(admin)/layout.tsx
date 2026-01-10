@@ -5,6 +5,7 @@ import "./globals.css";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/admin/ui/sidebar";
 import { AppSidebar } from "@/components/admin/app-sidebar";
 import { Separator } from "@/components/admin/ui/separator";
+import { Toaster } from "@/components/admin/ui/sonner";
 
 export default function AdminLayout({
   children,
@@ -26,6 +27,7 @@ export default function AdminLayout({
             <main className="flex-1 p-6">{children}</main>
           </SidebarInset>
         </SidebarProvider>
+        <Toaster />
       </SessionProvider>
       </body>
       </html>
