@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
       publishedAt: new Date(validatedData.publishedAt),
       summary: validatedData.summary,
       content: validatedData.content,
+      coverImage: validatedData.coverImage || null,
     });
 
     return NextResponse.json(post, { status: 201 });

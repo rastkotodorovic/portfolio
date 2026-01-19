@@ -17,6 +17,7 @@ export function mapPrismaBlogPostToUI(post: PrismaBlogPost): BlogPost {
     tag: post.tag,
     publishedAt: post.publishedAt.toISOString().split("T")[0],
     summary: post.summary,
+    coverImage: post.coverImage ?? undefined,
   };
 }
 
@@ -33,5 +34,7 @@ export function mapPrismaProjectToUI(project: PrismaProject): Project {
     publishedAt: project.publishedAt.toISOString().split("T")[0],
     teamSize: project.teamSize,
     link: project.link ?? undefined,
+    coverImage: project.coverImage ?? undefined,
+    images: project.images,
   };
 }

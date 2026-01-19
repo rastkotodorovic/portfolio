@@ -32,6 +32,8 @@ export default async function EditProjectPage({ params }: EditProjectPageProps) 
     teamSize: project.teamSize,
     link: project.link || "",
     content: project.content || "",
+    coverImage: project.coverImage || "",
+    images: project.images || [],
   };
 
   return (

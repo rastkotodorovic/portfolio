@@ -33,6 +33,7 @@ import {
   CardTitle,
 } from "@/components/admin/ui/card";
 import { blogPostSchema, type BlogPostFormData } from "@/lib/validations/blog";
+import { ImageUpload } from "@/components/admin/image-upload";
 
 interface BlogPostFormProps {
   initialData?: BlogPostFormData & { id?: string };
@@ -62,6 +63,7 @@ export function BlogPostForm({ initialData, isEditing = false }: BlogPostFormPro
       publishedAt: new Date().toISOString().split("T")[0],
       summary: "",
       content: "",
+      coverImage: "",
     },
   });
 
@@ -152,6 +154,27 @@ export function BlogPostForm({ initialData, isEditing = false }: BlogPostFormPro
                   </FormControl>
                   <FormDescription>
                     URL-friendly version of the title. Auto-generated from title.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="coverImage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Cover Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      folder="blog"
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Featured image for the blog post.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

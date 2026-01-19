@@ -37,6 +37,8 @@ export async function POST(request: NextRequest) {
       teamSize: validatedData.teamSize,
       link: validatedData.link || undefined,
       content: validatedData.content,
+      coverImage: validatedData.coverImage || null,
+      images: validatedData.images || [],
     });
 
     return NextResponse.json(project, { status: 201 });

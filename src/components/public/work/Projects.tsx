@@ -27,7 +27,10 @@ export async function Projects({ range, exclude }: ProjectsProps) {
           priority={index < 2}
           key={project.slug}
           href={`/work/${project.slug}`}
-          images={["/images/projects/project-01/cover-01.jpg"]}
+          images={[
+            ...(project.coverImage ? [project.coverImage] : []),
+            ...(project.images || []),
+          ]}
           title={project.title}
           description={project.summary}
           content={project.content || ""}

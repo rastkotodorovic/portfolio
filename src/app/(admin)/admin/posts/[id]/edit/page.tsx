@@ -31,6 +31,7 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
     publishedAt: post.publishedAt.toISOString().split("T")[0],
     summary: post.summary,
     content: post.content || "",
+    coverImage: post.coverImage || "",
   };
 
   return (

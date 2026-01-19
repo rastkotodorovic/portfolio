@@ -77,6 +77,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       teamSize: validatedData.teamSize,
       link: validatedData.link || undefined,
       content: validatedData.content,
+      coverImage: validatedData.coverImage || null,
+      images: validatedData.images || [],
     });
 
     return NextResponse.json(project);

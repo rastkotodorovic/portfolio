@@ -33,6 +33,8 @@ import {
   CardTitle,
 } from "@/components/admin/ui/card";
 import { projectSchema, type ProjectFormData } from "@/lib/validations/project";
+import { ImageUpload } from "@/components/admin/image-upload";
+import { MultiImageUpload } from "@/components/admin/multi-image-upload";
 
 interface ProjectFormProps {
   initialData?: ProjectFormData & { id?: string };
@@ -63,6 +65,8 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
       teamSize: 1,
       link: "",
       content: "",
+      coverImage: "",
+      images: [],
     },
   });
 
@@ -73,6 +77,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
       const url = isEditing
         ? `/api/admin/projects/${initialData?.id}`
         : "/api/admin/projects";
+
       const method = isEditing ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -83,6 +88,7 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
 
       if (!response.ok) {
         const error = await response.json();
+
         throw new Error(error.message || "Failed to save project");
       }
 
@@ -152,6 +158,49 @@ export function ProjectForm({ initialData, isEditing = false }: ProjectFormProps
                   </FormControl>
                   <FormDescription>
                     URL-friendly version of the title. Auto-generated from title.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="coverImage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Cover Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      folder="projects"
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Featured image for the project.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="images"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Gallery Images</FormLabel>
+                  <FormControl>
+                    <MultiImageUpload
+                      folder="projects"
+                      value={field.value || []}
+                      onChange={field.onChange}
+                      maxImages={10}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Additional images displayed in project carousel.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

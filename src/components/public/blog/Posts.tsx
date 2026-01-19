@@ -28,7 +28,7 @@ export async function Posts({
       publishedAt: post.publishedAt.toISOString(),
       summary: post.summary,
       tag: post.tag,
-      image: "/images/projects/project-01/cover-01.jpg", // Hardcoded for now
+      image: post.coverImage || undefined,
     },
   }));
 

@@ -103,13 +103,15 @@ export default async function Project({
           </Text>
         </Row>
       </Row>
-      <Media
-        priority
-        aspectRatio="16 / 9"
-        radius="m"
-        alt={project.title}
-        src="/images/projects/project-01/cover-01.jpg"
-      />
+      {(project.coverImage || (project.images && project.images.length > 0)) && (
+        <Media
+          priority
+          aspectRatio="16 / 9"
+          radius="m"
+          alt={project.title}
+          src={project.coverImage || project.images?.[0] || ""}
+        />
+      )}
       <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
         {project.content && <CustomMDX source={project.content} />}
       </Column>

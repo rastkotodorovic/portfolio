@@ -24,6 +24,8 @@ export type Project = {
   publishedAt: string;
   teamSize: number;
   link?: string;
+  coverImage?: string;
+  images?: string[];
 };
 
 function ActionsCell({ project }: { project: Project }) {

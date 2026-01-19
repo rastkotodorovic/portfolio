@@ -37,6 +37,7 @@ export async function createBlogPost(data: {
   publishedAt: Date;
   summary: string;
   content?: string;
+  coverImage?: string | null;
 }): Promise<BlogPost> {
   return prisma.blogPost.create({
     data,
@@ -53,6 +54,7 @@ export async function updateBlogPost(
     publishedAt?: Date;
     summary?: string;
     content?: string;
+    coverImage?: string | null;
   }
 ): Promise<BlogPost> {
   return prisma.blogPost.update({
@@ -102,6 +104,8 @@ export async function createProject(data: {
   teamSize: number;
   link?: string;
   content?: string;
+  coverImage?: string | null;
+  images?: string[];
 }): Promise<Project> {
   return prisma.project.create({
     data,
@@ -119,6 +123,8 @@ export async function updateProject(
     teamSize?: number;
     link?: string;
     content?: string;
+    coverImage?: string | null;
+    images?: string[];
   }
 ): Promise<Project> {
   return prisma.project.update({

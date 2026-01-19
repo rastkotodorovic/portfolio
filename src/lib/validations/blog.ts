@@ -26,6 +26,7 @@ export const blogPostSchema = z.object({
     .min(1, "Summary is required")
     .max(500, "Summary must be less than 500 characters"),
   content: z.string().optional(),
+  coverImage: z.string().url("Must be a valid URL").optional().or(z.literal("")),
 });
 
 export type BlogPostFormData = z.infer<typeof blogPostSchema>;

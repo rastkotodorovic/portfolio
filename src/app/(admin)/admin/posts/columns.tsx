@@ -23,6 +23,7 @@ export type BlogPost = {
   tag: string;
   publishedAt: string;
   summary: string;
+  coverImage?: string;
 };
 
 function ActionsCell({ post }: { post: BlogPost }) {

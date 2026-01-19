@@ -27,6 +27,8 @@ export const projectSchema = z.object({
     .max(100, "Team size must be less than 100"),
   link: z.string().url("Must be a valid URL").optional().or(z.literal("")),
   content: z.string().optional(),
+  coverImage: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  images: z.array(z.string().url("Must be a valid URL")).optional(),
 });
 
 export type ProjectFormData = z.infer<typeof projectSchema>;
