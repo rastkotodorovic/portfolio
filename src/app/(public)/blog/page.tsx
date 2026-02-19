@@ -3,6 +3,8 @@ import { Mailchimp } from "@/components";
 import { Posts } from "@/components/public/blog/Posts";
 import { baseURL, blog, person, newsletter } from "@/resources";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata() {
   return Meta.generate({
     title: blog.title,

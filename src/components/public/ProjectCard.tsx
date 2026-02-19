@@ -1,11 +1,12 @@
 "use client";
 
 import {
-  AvatarGroup,
+  Avatar,
   Carousel,
   Column,
   Flex,
   Heading,
+  Row,
   SmartLink,
   Text,
 } from "@once-ui-system/core";
@@ -18,6 +19,7 @@ interface ProjectCardProps {
   content: string;
   description: string;
   avatars: { src: string }[];
+  name: string;
   link: string;
 }
 
@@ -28,6 +30,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   content,
   description,
   avatars,
+  name,
   link,
 }) => {
   return (
@@ -57,7 +60,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         )}
         {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
           <Column flex={7} gap="16">
-            {avatars?.length > 0 && <AvatarGroup avatars={avatars} size="m" reverse />}
+            {avatars?.length > 0 && (
+              <Row vertical="center" gap="16">
+                <Avatar src={avatars[0].src} size="s" />
+                <Text variant="label-default-s">{name}</Text>
+              </Row>
+            )}
             {description?.trim() && (
               <Text wrap="balance" variant="body-default-s" onBackground="neutral-weak">
                 {description}

@@ -210,6 +210,26 @@ const about: About = {
             name: "Symfony",
             icon: "symfony",
           },
+          {
+            name: "Laravel",
+            icon: "laravel",
+          },
+          {
+            name: "PHP",
+            icon: "php",
+          },
+          {
+            name: "Nest js",
+            icon: "nestjs",
+          },
+          {
+            name: "Express",
+            icon: "express",
+          },
+          {
+            name: "Typescript",
+            icon: "typescript",
+          },
         ],
         // optional: leave the array empty if you don't want to display images
         images: [
@@ -230,20 +250,28 @@ const about: About = {
       {
         title: "Cloud/Dev-ops",
         description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
+          <>Building Infrastructure and devops for you</>
         ),
         tags: [
           {
-            name: "JavaScript",
-            icon: "javascript",
+            name: "Docker",
+            icon: "docker",
           },
           {
-            name: "Next.js",
-            icon: "nextjs",
+            name: "Docker Swarm",
+            icon: "docker",
           },
           {
-            name: "Supabase",
-            icon: "supabase",
+            name: "Grafana",
+            icon: "grafana",
+          },
+          {
+            name: "Aws",
+            icon: "aws",
+          },
+          {
+            name: "Github actions",
+            icon: "githubactions",
           },
         ],
         // optional: leave the array empty if you don't want to display images
@@ -263,16 +291,16 @@ const about: About = {
         ),
         tags: [
           {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
             name: "Next.js",
             icon: "nextjs",
           },
           {
-            name: "Supabase",
-            icon: "supabase",
+            name: "React native",
+            icon: "reactnative",
+          },
+          {
+            name: "Typescript",
+            icon: "typescript",
           },
         ],
         // optional: leave the array empty if you don't want to display images

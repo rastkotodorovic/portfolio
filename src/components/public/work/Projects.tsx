@@ -35,6 +35,7 @@ export async function Projects({ range, exclude }: ProjectsProps) {
           description={project.summary}
           content={project.content || ""}
           avatars={[{ src: person.avatar }]}
+          name={person.name}
           link={project.link || ""}
         />
       ))}

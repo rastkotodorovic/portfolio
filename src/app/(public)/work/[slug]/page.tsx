@@ -16,14 +16,9 @@ import { formatDate } from "@/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
 import { Projects } from "@/components/public/work/Projects";
-import { getProjectBySlug, getPublishedProjects } from "@/lib/db/posts";
+import { getProjectBySlug } from "@/lib/db/posts";
 
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const projects = await getPublishedProjects();
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

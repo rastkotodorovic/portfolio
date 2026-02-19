@@ -23,10 +23,12 @@ import {
 } from "react-icons/pi";
 
 import {
-  SiJavascript,
-  SiNextdotjs,
-  SiFigma,
-  SiSupabase, SiSymfony,
+  SiAmazonwebservices,
+  SiDocker,
+  SiExpress, SiGithubactions, SiGrafana,
+  SiJavascript, SiLaravel, SiNestjs,
+  SiNextdotjs, SiPhp, SiReact,
+  SiSupabase, SiSymfony, SiTypescript,
 } from "react-icons/si";
 
 import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads, FaInstagram, FaXTwitter, FaFacebook, FaPinterest, FaWhatsapp, FaReddit, FaTelegram, } from "react-icons/fa6";
@@ -57,8 +59,16 @@ export const iconLibrary: Record<string, IconType> = {
   javascript: SiJavascript,
   nextjs: SiNextdotjs,
   symfony: SiSymfony,
-  supabase: SiSupabase,
-  figma: SiFigma,
+  laravel: SiLaravel,
+  reactnative: SiReact,
+  php: SiPhp,
+  nestjs: SiNestjs,
+  express: SiExpress,
+  docker: SiDocker,
+  grafana: SiGrafana,
+  aws: SiAmazonwebservices,
+  githubactions: SiGithubactions,
+  typescript: SiTypescript,
   facebook: FaFacebook,
   pinterest: FaPinterest,
   whatsapp: FaWhatsapp,

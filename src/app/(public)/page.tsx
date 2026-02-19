@@ -16,6 +16,8 @@ import { Mailchimp } from "@/components";
 import { Projects } from "@/components/public/work/Projects";
 import { Posts } from "@/components/public/blog/Posts";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata() {
   return Meta.generate({
     title: home.title,

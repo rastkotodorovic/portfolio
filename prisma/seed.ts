@@ -1,4 +1,5 @@
-import { PrismaClient, PostStatus } from "@prisma/client";
+import {$Enums, PrismaClient} from "@prisma/client";
+import PostStatus = $Enums.PostStatus;
 
 const prisma = new PrismaClient();
 

@@ -18,14 +18,9 @@ import { formatDate } from "@/utils/formatDate";
 import { Metadata } from "next";
 import { Posts } from "@/components/public/blog/Posts";
 import { ShareSection } from "@/components/public/blog/ShareSection";
-import { getBlogPostBySlug, getPublishedBlogPosts } from "@/lib/db/posts";
+import { getBlogPostBySlug } from "@/lib/db/posts";
 
-export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = await getPublishedBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
