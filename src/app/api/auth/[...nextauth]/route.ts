@@ -8,6 +8,7 @@ const allowedEmails = process.env.ADMIN_EMAILS?.split(",").map((email) =>
 ) || [];
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.AUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.AUTH_GOOGLE_ID ?? "",
@@ -15,8 +16,8 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   pages: {
-    signIn: "/admin/login",
-    error: "/admin/login",
+    signIn: "/login",
+    error: "/login",
   },
   callbacks: {
     async signIn({ account, profile }) {

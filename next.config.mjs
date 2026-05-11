@@ -11,7 +11,7 @@ const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   transpilePackages: ["next-mdx-remote"],
   images: {
-    dangerouslyAllowLocalIP: process.env.NODE_ENV !== "production", // Needed for rendering s3 images locally from MinIO
+    dangerouslyAllowLocalIP: process.env.NODE_ENV !== "production", // Needed for rendering S3 images locally from Garage
     remotePatterns: [
       {
         protocol: "https",
@@ -48,17 +48,17 @@ const nextConfig = {
         hostname: "*.backblazeb2.com",
         pathname: "**",
       },
-      // MinIO (local development)
+      // Garage (local development)
       {
         protocol: "http",
         hostname: "localhost",
-        port: "9000",
+        port: "3900",
         pathname: "**",
       },
       {
         protocol: "http",
         hostname: "127.0.0.1",
-        port: "9000",
+        port: "3900",
         pathname: "**",
       },
     ],

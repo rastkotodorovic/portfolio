@@ -12,6 +12,19 @@ import {
   CardTitle,
 } from "@/components/admin/ui/card";
 
+function getLoginErrorMessage(error: string) {
+  switch (error) {
+    case "AccessDenied":
+      return "Access denied. Your Google account is not authorized.";
+    case "OAuthCallback":
+      return "Google rejected the OAuth credentials. Check your client ID, client secret, and redirect URI.";
+    case "Configuration":
+      return "Authentication is not configured correctly. Check your OAuth environment variables.";
+    default:
+      return "An error occurred during sign in. Please try again.";
+  }
+}
+
 export function LoginForm({
   className,
   ...props
@@ -33,13 +46,12 @@ export function LoginForm({
           <div className="grid gap-6">
             {error && (
               <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive">
-                {error === "AccessDenied"
-                  ? "Access denied. Your Google account is not authorized."
-                  : "An error occurred during sign in. Please try again."}
+                {getLoginErrorMessage(error)}
               </div>
             )}
             <div className="flex flex-col gap-4">
               <Button
+                type="button"
                 variant="outline"
                 className="w-full"
                 onClick={() => signIn("google", { callbackUrl })}

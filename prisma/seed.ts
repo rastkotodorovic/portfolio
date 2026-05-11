@@ -1,7 +1,12 @@
-import {$Enums, PrismaClient} from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { $Enums, PrismaClient } from "@prisma/client";
 import PostStatus = $Enums.PostStatus;
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log("Seeding database...");
@@ -122,8 +127,7 @@ async function main() {
       title: "Automating Design Handovers with Figma Pipeline",
       slug: "automate-design-handovers-with-a-figma-to-code-pipeline",
       status: PostStatus.published,
-      summary:
-        "A pipeline that converts Figma designs directly into clean, production-ready code",
+      summary: "A pipeline that converts Figma designs directly into clean, production-ready code",
       publishedAt: new Date("2024-04-01"),
       teamSize: 3,
       link: "https://once-ui.com/",
@@ -158,8 +162,7 @@ async function main() {
       title: "Mobile App for Health Tracking",
       slug: "mobile-health-tracking-app",
       status: PostStatus.published,
-      summary:
-        "Cross-platform mobile app for personal health and fitness tracking",
+      summary: "Cross-platform mobile app for personal health and fitness tracking",
       publishedAt: new Date("2023-12-05"),
       teamSize: 4,
       link: "https://example.com/health",
@@ -168,8 +171,7 @@ async function main() {
       title: "AI-Powered Content Generator",
       slug: "ai-content-generator",
       status: PostStatus.draft,
-      summary:
-        "An AI tool for generating marketing content and social media posts",
+      summary: "An AI tool for generating marketing content and social media posts",
       publishedAt: new Date("2023-11-20"),
       teamSize: 2,
     },

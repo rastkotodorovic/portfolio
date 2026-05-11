@@ -19,6 +19,7 @@ function createS3Client(): S3Client {
       secretAccessKey,
     },
     forcePathStyle,
+    requestChecksumCalculation: "WHEN_REQUIRED",
   });
 }
 

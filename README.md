@@ -23,6 +23,25 @@ npm install
 npm run dev
 ```
 
+**Local services**
+```
+docker compose up -d
+```
+
+The local S3-compatible store is Garage:
+
+- S3 endpoint: `http://127.0.0.1:3900`
+- S3 web endpoint: `http://127.0.0.1:3902`
+- Admin API: `http://127.0.0.1:3903`
+- Default local credentials: `GK0123456789abcdef01234567` / `0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef`
+- Default bucket expected by the app: `portfolio-images`
+
+The `garage-init` Compose service initializes the single-node layout, imports
+the local development key, creates the bucket, grants permissions, and configures
+CORS for browser uploads automatically. Uploaded images are served through the
+app at `/api/images/...`, so the local Garage bucket does not need public read
+access.
+
 **4. Edit config**
 ```
 src/resources/once-ui.config.js

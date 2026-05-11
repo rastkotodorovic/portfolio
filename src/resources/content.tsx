@@ -5,7 +5,7 @@ const person: Person = {
   firstName: "Rastko",
   lastName: "Todorovic",
   name: `Rastko Todorovic`,
-  role: "Software Engineer",
+  role: "Backend Software Engineer",
   avatar: "/images/avatar.jpg",
   email: "rale.todorovic2@gmail.com",
   location: "Europe/Sarajevo", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
@@ -39,12 +39,6 @@ const social: Social = [
     icon: "instagram",
     link: "https://www.instagram.com/once_ui/",
     essential: false,
-  },
-  {
-    name: "Threads",
-    icon: "threads",
-    link: "https://www.threads.com/@once_ui",
-    essential: true,
   },
   {
     name: "Email",

@@ -1,0 +1,12 @@
+FROM dxflrs/garage:v2.1.0 AS garage
+
+FROM node:20-alpine
+
+WORKDIR /opt/garage-init
+
+COPY --from=garage /garage /usr/local/bin/garage
+RUN npm install @aws-sdk/client-s3@3.971.0 dotenv@17.2.3
+
+COPY scripts/init-garage-compose.sh scripts/configure-garage-cors.mjs ./scripts/
+
+CMD ["sh", "scripts/init-garage-compose.sh"]

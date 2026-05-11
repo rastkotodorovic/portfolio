@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -19,25 +17,48 @@ services:
       timeout: 5s
       retries: 5
 
-  minio:
-    image: minio/minio:latest
-    container_name: magic-portfolio-minio
+  garage:
+    image: dxflrs/garage:v2.1.0
+    container_name: magic-portfolio-garage
     restart: unless-stopped
-    command: server /data --console-address ":9001"
-    environment:
-      MINIO_ROOT_USER: admin
-      MINIO_ROOT_PASSWORD: secret
     ports:
-      - "9000:9000"   # S3 API
-      - "9001:9001"   # Web Console
+      - "3900:3900" # S3 API
+      - "3901:3901" # Garage RPC
+      - "3902:3902" # S3 web endpoint
+      - "3903:3903" # Admin API
     volumes:
-      - minio_data:/data
+      - ./garage.toml:/etc/garage.toml:ro
+      - garage_meta:/var/lib/garage/meta
+      - garage_data:/var/lib/garage/data
     healthcheck:
-      test: ["CMD", "mc", "ready", "local"]
+      test: ["CMD", "/garage", "node", "id", "-q"]
       interval: 30s
-      timeout: 20s
+      timeout: 10s
       retries: 3
+
+  garage-init:
+    build:
+      context: .
+      dockerfile: Dockerfile.garage-init
+    container_name: magic-portfolio-garage-init
+    depends_on:
+      garage:
+        condition: service_healthy
+    environment:
+      GARAGE_CONFIG_FILE: /etc/garage-init.toml
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-GK0123456789abcdef01234567}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME:-portfolio-images}
+      S3_ENDPOINT: http://garage:3900
+      S3_REGION: ${S3_REGION:-garage}
+      S3_FORCE_PATH_STYLE: "true"
+      S3_PUBLIC_URL: ${S3_PUBLIC_URL:-/api/images}
+    volumes:
+      - ./garage-init.toml:/etc/garage-init.toml:ro
+      - garage_meta:/var/lib/garage/meta:ro
+    restart: "no"
 
 volumes:
   postgres_data:
-  minio_data:
+  garage_meta:
+  garage_data:

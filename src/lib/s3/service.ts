@@ -20,7 +20,7 @@ export function generateObjectKey(folder: ImageFolder, filename: string): string
  */
 export async function generatePresignedUploadUrl(
   key: string,
-  contentType: string
+  contentType: string,
 ): Promise<{ uploadUrl: string; publicUrl: string }> {
   if (!isAllowedImageType(contentType)) {
     throw new Error(`Invalid content type: ${contentType}`);
@@ -56,13 +56,17 @@ export function getPublicUrl(key: string): string {
 
   // Use custom public URL if provided (e.g., CDN)
   if (config.publicUrl) {
+    if (config.publicUrl.startsWith("/")) {
+      return `${config.publicUrl.replace(/\/$/, "")}/${key}`;
+    }
+
     return `${config.publicUrl.replace(/\/$/, "")}/${key}`;
   }
 
   // Construct URL based on endpoint and bucket
   if (config.endpoint) {
     const endpointUrl = new URL(config.endpoint);
-    // For path-style access (MinIO, etc.)
+    // For path-style access used by many S3-compatible providers.
     if (process.env.S3_FORCE_PATH_STYLE === "true") {
       return `${config.endpoint}/${config.bucket}/${key}`;
     }
@@ -100,27 +104,41 @@ export function extractKeyFromUrl(url: string): string | null {
   const config = getS3Config();
 
   try {
-    const urlObj = new URL(url);
+    const urlObj = new URL(url, "http://app.local");
+    const pathname = decodeURIComponent(urlObj.pathname);
+
+    const imageProxyPrefix = "/api/images/";
+    if (pathname.startsWith(imageProxyPrefix)) {
+      return pathname.slice(imageProxyPrefix.length);
+    }
 
     // Check if it's a custom public URL
     if (config.publicUrl) {
-      const publicUrlObj = new URL(config.publicUrl);
-      if (urlObj.host === publicUrlObj.host) {
-        return urlObj.pathname.slice(1); // Remove leading slash
+      const publicUrlObj = new URL(config.publicUrl, "http://app.local");
+      const publicPath = publicUrlObj.pathname.replace(/\/$/, "");
+
+      if (urlObj.origin === publicUrlObj.origin) {
+        if (publicPath && pathname.startsWith(`${publicPath}/`)) {
+          return pathname.slice(publicPath.length + 1);
+        }
+
+        if (!publicPath || publicPath === "/") {
+          return pathname.slice(1);
+        }
       }
     }
 
     // Check for path-style URL
     if (config.endpoint && process.env.S3_FORCE_PATH_STYLE === "true") {
       const bucketPrefix = `/${config.bucket}/`;
-      if (urlObj.pathname.startsWith(bucketPrefix)) {
-        return urlObj.pathname.slice(bucketPrefix.length);
+      if (pathname.startsWith(bucketPrefix)) {
+        return pathname.slice(bucketPrefix.length);
       }
     }
 
     // Check for virtual-hosted style or default AWS format
     if (urlObj.host.includes(config.bucket)) {
-      return urlObj.pathname.slice(1); // Remove leading slash
+      return pathname.slice(1);
     }
 
     return null;
@@ -129,13 +147,31 @@ export function extractKeyFromUrl(url: string): string | null {
   }
 }
 
+export function normalizeImageUrl(url?: string | null): string | undefined {
+  if (!url) {
+    return undefined;
+  }
+
+  if (url.startsWith("/") && !url.startsWith("/api/images/")) {
+    return url;
+  }
+
+  const key = extractKeyFromUrl(url);
+
+  if (!key) {
+    return url;
+  }
+
+  return getPublicUrl(key);
+}
+
 /**
  * Create presigned URL response for API
  */
 export async function createPresignedUrlResponse(
   folder: ImageFolder,
   filename: string,
-  contentType: string
+  contentType: string,
 ): Promise<PresignedUrlResponse> {
   const key = generateObjectKey(folder, filename);
   const { uploadUrl, publicUrl } = await generatePresignedUploadUrl(key, contentType);
