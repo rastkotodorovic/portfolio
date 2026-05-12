@@ -96,9 +96,23 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        <Text as="p">
+          I’m a backend engineer with 6+ years of experience building scalable applications,
+          integrations, and production systems. My foundation is in Symfony/PHP, and I also work
+          extensively with TypeScript across product development, tooling, and modern application
+          architecture.
+        </Text>
+        <Text as="p">
+          I focus on reliable, maintainable systems: APIs, third-party integrations with platforms
+          like Booking.com, Airbnb, and Vrbo, asynchronous workflows, messaging systems,
+          containerized environments, and infrastructure-oriented development.
+        </Text>
+        <Text as="p">
+          I’m especially interested in AI-powered features, AI-assisted engineering workflows, and
+          the backend and infrastructure needed to support intelligent products. I’m drawn to roles
+          where backend systems, AI capabilities, infrastructure, and product evolution come
+          together.
+        </Text>
       </>
     ),
   },
@@ -109,7 +123,8 @@ const about: About = {
       {
         company: "Mabbly",
         timeframe: "Sep 2025 - Present",
-        role: "Senior Software Engineer",
+        role: "Senior Backend/Infrastructure Software Engineer",
+        link: "https://mabbly.com",
         achievements: [
           <>
             Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
@@ -120,20 +135,13 @@ const about: About = {
             iterate 50% faster.
           </>,
         ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
         company: "SECRA (HomeToGo)",
         timeframe: "Mar 2022 - Sep 2025",
         role: "Software Engineer",
+        link: "https://secra.de",
         achievements: [
           <>
             Developed a design system that unified the brand across multiple platforms, improving
@@ -150,6 +158,7 @@ const about: About = {
         company: "Restart IT",
         timeframe: "Apr 2020 - Mar 2022",
         role: "Full stack software developer",
+        link: "https://restartit.me",
         achievements: [
           <>
             Developed a design system that unified the brand across multiple platforms, improving
@@ -166,6 +175,7 @@ const about: About = {
         company: "Vertex IT",
         timeframe: "Jun 2019 - Apr 2020",
         role: "Software developer Internship",
+        link: "https://vertex-it.com",
         achievements: [
           <>
             Developed a design system that unified the brand across multiple platforms, improving
@@ -186,6 +196,7 @@ const about: About = {
     institutions: [
       {
         name: "University Sinergija",
+        link: "https://sinergija.edu.ba/en/english/",
         description: <>Studied software engineering.</>,
       },
     ],
@@ -197,7 +208,7 @@ const about: About = {
       {
         title: "Backend",
         description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
+          <>Building scalable backend systems, APIs, integrations, queues, and admin workflows with Symfony, Laravel, PHP, and TypeScript/Node.js.</>
         ),
         tags: [
           {
@@ -205,15 +216,19 @@ const about: About = {
             icon: "symfony",
           },
           {
-            name: "Laravel",
-            icon: "laravel",
-          },
-          {
             name: "PHP",
             icon: "php",
           },
           {
-            name: "Nest js",
+            name: "Laravel",
+            icon: "laravel",
+          },
+          {
+            name: "Node js",
+            icon: "nodejs",
+          },
+          {
+            name: "NestJS",
             icon: "nestjs",
           },
           {
@@ -221,20 +236,20 @@ const about: About = {
             icon: "express",
           },
           {
-            name: "Typescript",
+            name: "TypeScript",
             icon: "typescript",
           },
         ],
         // optional: leave the array empty if you don't want to display images
         images: [
           {
-            src: "/images/projects/project-01/cover-02.jpg",
+            src: "/images/skills/symfony.png",
             alt: "Project image",
             width: 16,
             height: 9,
           },
           {
-            src: "/images/projects/project-01/cover-03.jpg",
+            src: "/images/skills/nodejs.png",
             alt: "Project image",
             width: 16,
             height: 9,
@@ -260,18 +275,18 @@ const about: About = {
             icon: "grafana",
           },
           {
-            name: "Aws",
+            name: "AWS",
             icon: "aws",
           },
           {
-            name: "Github actions",
+            name: "Github Actions",
             icon: "githubactions",
           },
         ],
         // optional: leave the array empty if you don't want to display images
         images: [
           {
-            src: "/images/projects/project-01/cover-04.jpg",
+            src: "/images/skills/docker.png",
             alt: "Project image",
             width: 16,
             height: 9,
@@ -289,7 +304,7 @@ const about: About = {
             icon: "nextjs",
           },
           {
-            name: "React native",
+            name: "React Native",
             icon: "reactnative",
           },
           {
@@ -300,7 +315,13 @@ const about: About = {
         // optional: leave the array empty if you don't want to display images
         images: [
           {
-            src: "/images/projects/project-01/cover-04.jpg",
+            src: "/images/skills/nextjs.jpg",
+            alt: "Project image",
+            width: 16,
+            height: 9,
+          },
+          {
+            src: "/images/skills/react-native.png",
             alt: "Project image",
             width: 16,
             height: 9,

@@ -210,10 +210,29 @@ export default function About() {
               <Column fillWidth gap="l" marginBottom="40">
                 {about.work.experiences.map((experience, index) => (
                   <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
-                    <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
-                      <Text id={experience.company} variant="heading-strong-l">
-                        {experience.company}
-                      </Text>
+                    <Row
+                      fillWidth
+                      horizontal="between"
+                      vertical="end"
+                      marginBottom="4"
+                      gap="12"
+                      wrap
+                    >
+                      <Row vertical="center" gap="8" wrap>
+                        <Text id={experience.company} variant="heading-strong-l">
+                          {experience.company}
+                        </Text>
+                        {experience.link && (
+                          <Button
+                            href={experience.link}
+                            label="Visit"
+                            size="s"
+                            weight="default"
+                            variant="secondary"
+                            suffixIcon="arrowUpRightFromSquare"
+                          />
+                        )}
+                      </Row>
                       <Text variant="heading-default-xs" onBackground="neutral-weak">
                         {experience.timeframe}
                       </Text>
@@ -269,9 +288,21 @@ export default function About() {
               <Column fillWidth gap="l" marginBottom="40">
                 {about.studies.institutions.map((institution, index) => (
                   <Column key={`${institution.name}-${index}`} fillWidth gap="4">
-                    <Text id={institution.name} variant="heading-strong-l">
-                      {institution.name}
-                    </Text>
+                    <Row vertical="center" gap="8" wrap>
+                      <Text id={institution.name} variant="heading-strong-l">
+                        {institution.name}
+                      </Text>
+                      {institution.link && (
+                        <Button
+                          href={institution.link}
+                          label="Visit"
+                          size="s"
+                          weight="default"
+                          variant="secondary"
+                          suffixIcon="arrowUpRightFromSquare"
+                        />
+                      )}
+                    </Row>
                     <Text variant="heading-default-xs" onBackground="neutral-weak">
                       {institution.description}
                     </Text>
