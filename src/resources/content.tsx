@@ -124,7 +124,16 @@ const about: About = {
         company: "Mabbly",
         timeframe: "Sep 2025 - Present",
         role: "Senior Backend/Infrastructure Software Engineer",
-        link: "https://mabbly.com",
+        links: [
+          {
+            label: "Mabbly",
+            href: "https://mabbly.com",
+          },
+          {
+            label: "TIGER 21",
+            href: "https://tiger21.com",
+          },
+        ],
         achievements: [
           <>
             Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
@@ -141,7 +150,16 @@ const about: About = {
         company: "SECRA (HomeToGo)",
         timeframe: "Mar 2022 - Sep 2025",
         role: "Software Engineer",
-        link: "https://secra.de",
+        links: [
+          {
+            label: "SECRA",
+            href: "https://secra.de",
+          },
+          {
+            label: "HomeToGo",
+            href: "https://hometogo.com",
+          },
+        ],
         achievements: [
           <>
             Developed a design system that unified the brand across multiple platforms, improving

@@ -152,6 +152,11 @@ export interface About extends BasePageConfig {
       role: string;
       /** Company or client website */
       link?: string;
+      /** Company/client websites to show as labeled actions */
+      links?: Array<{
+        label: string;
+        href: string;
+      }>;
       /** Achievements at the company */
       achievements: React.ReactNode[];
       /** Images related to the experience */

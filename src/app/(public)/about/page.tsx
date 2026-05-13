@@ -222,16 +222,20 @@ export default function About() {
                         <Text id={experience.company} variant="heading-strong-l">
                           {experience.company}
                         </Text>
-                        {experience.link && (
+                        {(
+                          experience.links ??
+                          (experience.link ? [{ label: "Visit", href: experience.link }] : [])
+                        ).map((link) => (
                           <Button
-                            href={experience.link}
-                            label="Visit"
+                            key={`${experience.company}-${link.href}`}
+                            href={link.href}
+                            label={link.label}
                             size="s"
                             weight="default"
                             variant="secondary"
                             suffixIcon="arrowUpRightFromSquare"
                           />
-                        )}
+                        ))}
                       </Row>
                       <Text variant="heading-default-xs" onBackground="neutral-weak">
                         {experience.timeframe}
