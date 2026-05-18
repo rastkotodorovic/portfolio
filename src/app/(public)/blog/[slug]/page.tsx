@@ -1,24 +1,24 @@
-import { notFound } from "next/navigation";
 import { CustomMDX, ScrollToHash } from "@/components";
-import {
-  Meta,
-  Schema,
-  Column,
-  Heading,
-  HeadingNav,
-  Row,
-  Text,
-  SmartLink,
-  Avatar,
-  Media,
-  Line,
-} from "@once-ui-system/core";
-import { baseURL, about, blog, person } from "@/resources";
-import { formatDate } from "@/utils/formatDate";
-import { Metadata } from "next";
 import { Posts } from "@/components/public/blog/Posts";
 import { ShareSection } from "@/components/public/blog/ShareSection";
 import { getBlogPostBySlug } from "@/lib/db/posts";
+import { about, baseURL, blog, person } from "@/resources";
+import { formatDate } from "@/utils/formatDate";
+import {
+  Avatar,
+  Column,
+  Heading,
+  HeadingNav,
+  Line,
+  Media,
+  Meta,
+  Row,
+  Schema,
+  SmartLink,
+  Text,
+} from "@once-ui-system/core";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -36,11 +36,13 @@ export async function generateMetadata({
 
   if (!post) return {};
 
+  const image = post.coverImage || `/api/og/generate?title=${encodeURIComponent(post.title)}`;
+
   return Meta.generate({
     title: post.title,
     description: post.summary,
     baseURL: baseURL,
-    image: `/api/og/generate?title=${post.title}`,
+    image,
     path: `${blog.path}/${post.slug}`,
   });
 }
@@ -57,6 +59,8 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
     notFound();
   }
 
+  const image = post.coverImage || "/images/projects/project-01/cover-01.jpg";
+
   return (
     <Row fillWidth>
       <Row maxWidth={12} m={{ hide: true }} />
@@ -70,7 +74,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
             description={post.summary}
             datePublished={post.publishedAt.toISOString()}
             dateModified={post.updatedAt.toISOString()}
-            image={`/api/og/generate?title=${encodeURIComponent(post.title)}`}
+            image={image}
             author={{
               name: person.name,
               url: `${baseURL}${about.path}`,
@@ -85,11 +89,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
               {formatDate(post.publishedAt.toISOString())}
             </Text>
             <Heading variant="display-strong-m">{post.title}</Heading>
-            <Text
-              variant="body-default-l"
-              onBackground="neutral-weak"
-              align="center"
-            >
+            <Text variant="body-default-l" onBackground="neutral-weak" align="center">
               {post.summary}
             </Text>
           </Column>
@@ -102,7 +102,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
             </Row>
           </Row>
           <Media
-            src="/images/projects/project-01/cover-01.jpg"
+            src={image}
             alt={post.title}
             aspectRatio="16/9"
             priority
@@ -116,10 +116,7 @@ export default async function Blog({ params }: { params: Promise<{ slug: string 
             {post.content && <CustomMDX source={post.content} />}
           </Column>
 
-          <ShareSection
-            title={post.title}
-            url={`${baseURL}${blog.path}/${post.slug}`}
-          />
+          <ShareSection title={post.title} url={`${baseURL}${blog.path}/${post.slug}`} />
 
           <Column fillWidth gap="40" horizontal="center" marginTop="40">
             <Line maxWidth="40" />
