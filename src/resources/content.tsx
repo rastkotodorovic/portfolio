@@ -97,21 +97,23 @@ const about: About = {
     description: (
       <>
         <Text as="p">
-          I’m a backend engineer with 6+ years of experience building scalable applications,
-          integrations, and production systems. My foundation is in Symfony/PHP, and I also work
-          extensively with TypeScript across product development, tooling, and modern application
-          architecture.
+          Backend Software Engineer focused on scalable backend systems, complex integrations, infrastructure, and AI-enabled engineering.
         </Text>
+        
         <Text as="p">
-          I focus on reliable, maintainable systems: APIs, third-party integrations with platforms
-          like Booking.com, Airbnb, and Vrbo, asynchronous workflows, messaging systems,
-          containerized environments, and infrastructure-oriented development.
+          I have 6+ years of experience building production applications with Symfony/PHP as my main backend stack, while also working extensively with TypeScript, Node.js, React/Next.js, Docker, Redis, RabbitMQ, PostgreSQL/MariaDB, and CI/CD pipelines.
         </Text>
+        
         <Text as="p">
-          I’m especially interested in AI-powered features, AI-assisted engineering workflows, and
-          the backend and infrastructure needed to support intelligent products. I’m drawn to roles
-          where backend systems, AI capabilities, infrastructure, and product evolution come
-          together.
+          My work focuses on backend APIs, third-party platform integrations, asynchronous workflows, message queues, webhooks, performance optimization, and reliable production architecture. I’ve worked on complex integrations involving Booking.com, Airbnb, Vrbo, authentication systems, payment flows, and business-critical internal APIs.
+        </Text>
+        
+        <Text as="p">
+          Beyond application development, I also work with infrastructure and DevOps-oriented systems, including Docker Swarm, containerized deployments, Traefik/Nginx, cloud environments, monitoring, deployment automation, and production debugging.
+        </Text>
+        
+        <Text as="p">
+          I use AI tools daily as part of my engineering workflow and have helped teams improve delivery efficiency through AI-assisted development, better technical planning, documentation, and review processes. I’m especially interested in AI engineering, agent-assisted workflows, automation, and building the backend and infrastructure foundations needed for intelligent products.
         </Text>
       </>
     ),
@@ -121,7 +123,7 @@ const about: About = {
     title: "Work Experience",
     experiences: [
       {
-        company: "Mabbly",
+        company: "Mabbly (Tiger21)",
         timeframe: "Sep 2025 - Present",
         role: "Senior Backend/Infrastructure Software Engineer",
         links: [
