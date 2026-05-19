@@ -1,12 +1,13 @@
 "use client";
 
 import {
-  LayoutDashboard,
+  CalendarClock,
   FileText,
   FolderKanban,
-  Users,
-  Settings,
+  LayoutDashboard,
   LogOut,
+  Settings,
+  Users,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
@@ -43,6 +44,11 @@ const navItems = [
     icon: FolderKanban,
   },
   {
+    title: "Bookings",
+    url: "/admin/bookings",
+    icon: CalendarClock,
+  },
+  {
     title: "Users",
     url: "/admin/users",
     icon: Users,
@@ -75,11 +81,7 @@ export function AppSidebar() {
             <SidebarMenu>
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={pathname === item.url}
-                    tooltip={item.title}
-                  >
+                  <SidebarMenuButton asChild isActive={pathname === item.url} tooltip={item.title}>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>

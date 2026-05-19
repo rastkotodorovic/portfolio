@@ -1,0 +1,96 @@
+@use "../breakpoints.scss" as breakpoints;
+
+.form {
+  width: 100%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--static-space-6);
+}
+
+.label {
+  color: var(--neutral-on-background-medium);
+  font-family: var(--font-label);
+  font-size: var(--font-size-label-s);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  border: 1px solid var(--neutral-alpha-medium);
+  background: var(--page-background);
+  color: var(--neutral-on-background-strong);
+  border-radius: var(--radius-m);
+  font: inherit;
+  font-size: var(--font-size-body-m);
+  outline: none;
+  transition:
+    border-color var(--transition-micro-medium),
+    box-shadow var(--transition-micro-medium),
+    background var(--transition-micro-medium);
+}
+
+.input,
+.select {
+  height: var(--static-space-48);
+  padding: 0 var(--static-space-16);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--neutral-on-background-weak);
+}
+
+.input[type="date"] {
+  color-scheme: light dark;
+}
+
+.textarea {
+  min-height: 128px;
+  resize: vertical;
+  padding: var(--static-space-12) var(--static-space-16);
+  line-height: 1.5;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--brand-alpha-strong);
+  box-shadow: 0 0 0 3px var(--brand-alpha-weak);
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.submitButton {
+  min-height: var(--static-space-48);
+  border-radius: var(--radius-m) !important;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (max-width: breakpoints.$s) {
+  .input,
+  .select {
+    height: var(--static-space-44);
+  }
+
+  .textarea {
+    min-height: 112px;
+  }
+}

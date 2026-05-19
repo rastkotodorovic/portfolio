@@ -11,6 +11,12 @@ enum PostStatus {
   draft
 }
 
+enum BookingStatus {
+  pending
+  confirmed
+  cancelled
+}
+
 model BlogPost {
   id          String     @id @default(cuid())
   title       String
@@ -47,4 +53,23 @@ model Project {
   @@index([status])
   @@index([publishedAt])
   @@map("projects")
+}
+
+model CallBooking {
+  id              String        @id @default(cuid())
+  name            String
+  email           String
+  topic           String
+  message         String?       @db.Text
+  preferredDate   DateTime
+  preferredTime   String
+  timezone        String
+  status          BookingStatus @default(pending)
+  calendarEventId String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([status])
+  @@index([preferredDate])
+  @@map("call_bookings")
 }
