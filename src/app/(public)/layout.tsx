@@ -19,7 +19,7 @@ export async function generateMetadata() {
   return {
     title: home.title,
     description: home.description,
-    metadataBase: new URL(`https://${baseURL}`),
+    metadataBase: new URL(baseURL),
   };
 }
 
