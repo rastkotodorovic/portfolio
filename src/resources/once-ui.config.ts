@@ -13,8 +13,9 @@ import type {
 } from "@/types";
 import { home } from "./index";
 
-// IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL: string = "https://demo.magic-portfolio.com";
+// IMPORTANT: Replace with your own domain address before launch.
+// SITE_URL can override this in production metadata, robots, and sitemap.
+const baseURL: string = process.env.NEXT_PUBLIC_SITE_URL || "https://demo.magic-portfolio.com";
 
 const routes: RoutesConfig = {
   "/": true,

@@ -1,25 +1,67 @@
-import { getPosts } from "@/utils/utils";
-import { baseURL, routes as routesConfig } from "@/resources";
+import { getPublishedBlogPosts, getPublishedProjects } from "@/lib/db/posts";
+import type { MetadataRoute } from "next";
 
-export default async function sitemap() {
-  const blogs = getPosts(["src", "app", "(public)", "blog", "posts"]).map((post) => ({
-    url: `${baseURL}/blog/${post.slug}`,
-    lastModified: post.metadata.publishedAt,
-  }));
+export const dynamic = "force-dynamic";
 
-  const works = getPosts(["src", "app", "(public)", "work", "projects"]).map((post) => ({
-    url: `${baseURL}/work/${post.slug}`,
-    lastModified: post.metadata.publishedAt,
-  }));
+const siteUrl = (
+  process.env.SITE_URL ||
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://demo.magic-portfolio.com"
+).replace(/\/+$/, "");
 
-  const activeRoutes = Object.keys(routesConfig).filter(
-    (route) => routesConfig[route as keyof typeof routesConfig],
-  );
+const isIndexable =
+  process.env.SITE_INDEXABLE === "true" || process.env.NEXT_PUBLIC_SITE_INDEXABLE === "true";
+
+const activeRoutes = ["/", "/about", "/work", "/blog", "/schedule"] as const;
+
+const routePriorities: Record<string, number> = {
+  "/": 1,
+  "/about": 0.9,
+  "/work": 0.8,
+  "/blog": 0.8,
+  "/schedule": 0.4,
+};
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  if (!isIndexable) {
+    return [];
+  }
 
   const routes = activeRoutes.map((route) => ({
-    url: `${baseURL}${route !== "/" ? route : ""}`,
-    lastModified: new Date().toISOString().split("T")[0],
+    url: `${siteUrl}${route !== "/" ? route : ""}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: routePriorities[route] ?? 0.5,
   }));
 
-  return [...routes, ...blogs, ...works];
+  let blogRoutes: MetadataRoute.Sitemap = [];
+  let projectRoutes: MetadataRoute.Sitemap = [];
+
+  try {
+    const blogs = await getPublishedBlogPosts();
+
+    blogRoutes = blogs.map((post) => ({
+      url: `${siteUrl}/blog/${post.slug}`,
+      lastModified: post.updatedAt,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+  } catch (error) {
+    console.error("Failed to load blog sitemap entries:", error);
+  }
+
+  try {
+    const projects = await getPublishedProjects();
+
+    projectRoutes = projects.map((project) => ({
+      url: `${siteUrl}/work/${project.slug}`,
+      lastModified: project.updatedAt,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
+    }));
+  } catch (error) {
+    console.error("Failed to load project sitemap entries:", error);
+  }
+
+  return [...routes, ...projectRoutes, ...blogRoutes];
 }

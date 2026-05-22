@@ -4,7 +4,7 @@ import "@/resources/custom.css";
 
 import classNames from "classnames";
 
-import { baseURL, fonts, style, dataStyle, home, effects } from "@/resources";
+import { fonts, style, dataStyle, home, effects } from "@/resources";
 import {
   Background,
   Column,
@@ -16,10 +16,13 @@ import {
 import { Footer, Header, Providers, RouteGuard } from "@/components";
 
 export async function generateMetadata() {
+  const siteUrl =
+    process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://demo.magic-portfolio.com";
+
   return {
     title: home.title,
     description: home.description,
-    metadataBase: new URL(baseURL),
+    metadataBase: new URL(siteUrl),
   };
 }
 
