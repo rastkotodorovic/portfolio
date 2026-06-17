@@ -1,5 +1,5 @@
-import { Row, IconButton, SmartLink, Text } from "@once-ui-system/core";
 import { person, social } from "@/resources";
+import { IconButton, Row, SmartLink, Text } from "@once-ui-system/core";
 import styles from "./Footer.module.scss";
 
 export const Footer = () => {
@@ -31,19 +31,21 @@ export const Footer = () => {
           </Text>
         </Text>
         <Row gap="16">
-          {social.map(
-            (item) =>
-              item.link && (
-                <IconButton
-                  key={item.name}
-                  href={item.link}
-                  icon={item.icon}
-                  tooltip={item.name}
-                  size="s"
-                  variant="ghost"
-                />
-              ),
-          )}
+          {social
+            .filter((item) => item.essential)
+            .map(
+              (item) =>
+                item.link && (
+                  <IconButton
+                    key={item.name}
+                    href={item.link}
+                    icon={item.icon}
+                    tooltip={item.name}
+                    size="s"
+                    variant="ghost"
+                  />
+                ),
+            )}
         </Row>
       </Row>
       <Row height="80" hide s={{ hide: false }} />
